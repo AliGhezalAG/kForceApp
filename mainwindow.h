@@ -9,14 +9,21 @@ namespace Ui {
 class MainWindow;
 }
 
+/// @brief Class for GUI
+/// @author Ali Ghezal
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
+    /// @brief Construct GUI window
     explicit MainWindow(QWidget *parent = nullptr);
+    /// Class destructor
     ~MainWindow();
-    void init();
+    /// @brief Update display.
+    /// @details Update the message displayed in the text area.
+    /// @param message  new message to display
     void update(QString message);
 
 private:

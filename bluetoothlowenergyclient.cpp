@@ -4,7 +4,9 @@ BluetoothLowEnergyClient::BluetoothLowEnergyClient(QString address) : BluetoothC
     timeClockSet(false)
 {
     qDebug() << Q_FUNC_INFO;
+    // init controller
     m_controller =  new QLowEnergyController(QBluetoothAddress(address), this);
+    // init data handler
     dataHandler = new KinventKForceDataHandler();
 }
 
@@ -12,6 +14,7 @@ BluetoothLowEnergyClient::~BluetoothLowEnergyClient()
 {
     qDebug() << Q_FUNC_INFO;
 
+    // disconnect frm device before deleting the controller
     if (m_controller)
         m_controller->disconnectFromDevice();
     delete m_controller;
@@ -30,12 +33,14 @@ QString BluetoothLowEnergyClient::getMessage()
 
 void BluetoothLowEnergyClient::start()
 {
+    // connect the controller's signals tpo slots
     connect(m_controller, SIGNAL(serviceDiscovered(QBluetoothUuid)), this, SLOT(ajouterService(QBluetoothUuid)));
     connect(m_controller, SIGNAL(connected()), this, SLOT(deviceDiscoverServices()));
     connect(m_controller, SIGNAL(disconnected()), this, SLOT(deviceDisconnected()));
 
     qDebug() << Q_FUNC_INFO << "demande de connexion";
     m_controller->setRemoteAddressType(QLowEnergyController::PublicAddress);
+    // connect to device and start discovering services
     m_controller->connectToDevice();
 }
 
@@ -48,6 +53,7 @@ void BluetoothLowEnergyClient::stop()
 
 void BluetoothLowEnergyClient::read()
 {
+    // if service and read characteristic are available
     if(m_service && m_txCharacteristic.isValid())
     {
         if (m_txCharacteristic.properties() & QLowEnergyCharacteristic::Read)
@@ -62,6 +68,7 @@ void BluetoothLowEnergyClient::read()
 
 void BluetoothLowEnergyClient::write(const QByteArray &data)
 {
+    // if service and write characteristic are available
     if(m_service && m_rxCharacteristic.isValid())
     {
         if (m_rxCharacteristic.properties() & QLowEnergyCharacteristic::Write)
@@ -92,6 +99,7 @@ void BluetoothLowEnergyClient::gererNotification(bool notification)
     }
 }
 
+// TODO
 void BluetoothLowEnergyClient::setTimeClock()
 {
     time_t now = time(nullptr);
@@ -164,6 +172,7 @@ void BluetoothLowEnergyClient::connecterService(QLowEnergyService *service)
 {
     m_service = service;
 
+    // if current service characteristics need to be discovered
     if (m_service->state() == QLowEnergyService::DiscoveryRequired)
     {
         // Slot to change a characteristic
@@ -178,12 +187,15 @@ void BluetoothLowEnergyClient::connecterService(QLowEnergyService *service)
 
 void BluetoothLowEnergyClient::ajouterService(QBluetoothUuid serviceUuid)
 {
+    // when a service is discovered, create a corresponding object
     QLowEnergyService *service = m_controller->createServiceObject(serviceUuid);
+    // and connect to service for characteristic discovery
     connecterService(service);
 }
 
 void BluetoothLowEnergyClient::serviceCharacteristicChanged(const QLowEnergyCharacteristic &c, const QByteArray &value)
 {
+    // if read characteristic changed, process the received data based on the request type
     if (c.uuid().toString() == CHARACTERISTIC_UUID)
     {
         switch(request)
@@ -201,6 +213,7 @@ void BluetoothLowEnergyClient::serviceCharacteristicChanged(const QLowEnergyChar
             if (receivedData.size() >= 128000){
                 dataHandler->processData(this->deviceAddress, receivedData);
                 request = NO_REQUEST;
+                receivedData.clear();
             }
             break;
         case GET_REAL_TIME_CLOCK :

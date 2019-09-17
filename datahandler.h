@@ -9,13 +9,21 @@
 #include <sstream>
 #include <QDir>
 
+/// @brief Class for generic data handler
+/// @author Ali Ghezal
+
 class DataHandler : public QObject
 {
     Q_OBJECT
 
 public:
+    /// @brief Construct data handler
     DataHandler();
+    /// Class destructor
     virtual ~DataHandler();
+    /// @brief Process memory dump data
+    /// @param address  the bluetooth device IP address
+    /// @param receivedData  the received data
     virtual void processData(QString &deviceAddress, QByteArray &receivedData);
 
 protected:
