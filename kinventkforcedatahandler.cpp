@@ -28,6 +28,27 @@ void KinventKForceDataHandler::setBaseline(const QByteArray &data)
     emit processBaselineFinished();
 }
 
+void KinventKForceDataHandler::setBatteryLevel(const QByteArray &data)
+{
+    // get second byte from read data
+    batteryLevel = byteArrayToInt(data.mid(1,1));
+    // create the update message
+    message = "Battery level : "
+            + QString::number(batteryLevel);
+    emit processBatteryLevelFinished();
+}
+
+void KinventKForceDataHandler::setFirmwareVersion(const QByteArray &data)
+{
+    // get second byte from read data
+    QString version(data);
+    firmwareVersion = version;
+    // create the update message
+    message = "Firmware : "
+            + firmwareVersion;
+    emit processFirmwareVersionFinished();
+}
+
 void KinventKForceDataHandler::setRealTimeClock(const QByteArray &data)
 {
     // initiate a new tm from the received data
@@ -50,6 +71,14 @@ void KinventKForceDataHandler::setRealTimeClock(const QByteArray &data)
 
 void KinventKForceDataHandler::processData(QString &deviceAddress, QByteArray &receivedData)
 {
+
+    // Save the data to a file.
+    QSaveFile file("./results/dataDump");
+    file.open(QIODevice::WriteOnly);
+    file.write(receivedData);
+    // Calling commit() is mandatory, otherwise nothing will be written.
+    file.commit();
+
     // get the system time clock
     std::time_t timeDate = std::time(nullptr);
     string timeDateStr = std::ctime(&timeDate);

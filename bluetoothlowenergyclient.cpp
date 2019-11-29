@@ -155,6 +155,20 @@ void BluetoothLowEnergyClient::getBaseline()
     write(command);
 }
 
+void BluetoothLowEnergyClient::getBatteryLevel()
+{
+    request = GET_BATTERY_LEVEL;
+    QByteArray command = QByteArray::fromHex(GET_BATTERY_LEVE_COMMAND);
+    write(command);
+}
+
+void BluetoothLowEnergyClient::getFirmwareVersion()
+{
+    request = GET_FIRMWARE_VERSION;
+    QByteArray command = QByteArray::fromHex(GET_FIRMWARE_VERSION_COMMAND);
+    write(command);
+}
+
 void BluetoothLowEnergyClient::getData()
 {
     request = GET_MEASUREMENT;
@@ -165,6 +179,12 @@ void BluetoothLowEnergyClient::getData()
 void BluetoothLowEnergyClient::resetMemory()
 {
     QByteArray command = QByteArray::fromHex(RESET_MEMORY_COMMAND);
+    write(command);
+}
+
+void BluetoothLowEnergyClient::resetBaselines()
+{
+    QByteArray command = QByteArray::fromHex(RESET_BASELINE_COMMAND);
     write(command);
 }
 
@@ -210,7 +230,7 @@ void BluetoothLowEnergyClient::serviceCharacteristicChanged(const QLowEnergyChar
             break;
         case GET_MEASUREMENT :
             receivedData.append(value);
-            if (receivedData.size() >= 128000){
+            if (receivedData.size() >= MEMORY_SIZE){
                 dataHandler->processData(this->deviceAddress, receivedData);
                 request = NO_REQUEST;
                 receivedData.clear();
@@ -218,6 +238,14 @@ void BluetoothLowEnergyClient::serviceCharacteristicChanged(const QLowEnergyChar
             break;
         case GET_REAL_TIME_CLOCK :
             dataHandler->setRealTimeClock(value);
+            request = NO_REQUEST;
+            break;
+        case GET_BATTERY_LEVEL :
+            dataHandler->setBatteryLevel(value);
+            request = NO_REQUEST;
+            break;
+        case GET_FIRMWARE_VERSION :
+            dataHandler->setFirmwareVersion(value);
             request = NO_REQUEST;
             break;
         default:

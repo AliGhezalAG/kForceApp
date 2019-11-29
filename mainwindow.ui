@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>797</width>
-    <height>445</height>
+    <height>655</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>KForce knob app</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QLabel" name="KnobSelectionLabel">
@@ -66,7 +66,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>70</y>
+      <y>110</y>
       <width>281</width>
       <height>25</height>
      </rect>
@@ -79,7 +79,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>110</y>
+      <y>150</y>
       <width>281</width>
       <height>25</height>
      </rect>
@@ -92,7 +92,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>150</y>
+      <y>190</y>
       <width>281</width>
       <height>25</height>
      </rect>
@@ -105,7 +105,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>190</y>
+      <y>230</y>
       <width>281</width>
       <height>25</height>
      </rect>
@@ -120,7 +120,7 @@
       <x>340</x>
       <y>10</y>
       <width>441</width>
-      <height>371</height>
+      <height>521</height>
      </rect>
     </property>
    </widget>
@@ -128,7 +128,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>230</y>
+      <y>270</y>
       <width>281</width>
       <height>25</height>
      </rect>
@@ -141,7 +141,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>270</y>
+      <y>310</y>
       <width>281</width>
       <height>25</height>
      </rect>
@@ -154,7 +154,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>350</y>
+      <y>550</y>
       <width>281</width>
       <height>25</height>
      </rect>
@@ -167,13 +167,75 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>310</y>
+      <y>350</y>
       <width>281</width>
       <height>25</height>
      </rect>
     </property>
     <property name="text">
      <string>Set time clock</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="getBatteryLevelButton">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>390</y>
+      <width>281</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Get battery level</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="resetBaselinesButton">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>430</y>
+      <width>281</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Reset baselines</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="getFirmwareVersionButton">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>470</y>
+      <width>281</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Get firmware version</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="knobAddress">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>70</y>
+      <width>151</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="getSerialPortsInfoButton">
+    <property name="geometry">
+     <rect>
+      <x>28</x>
+      <y>510</y>
+      <width>281</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Get serial ports info</string>
     </property>
    </widget>
   </widget>

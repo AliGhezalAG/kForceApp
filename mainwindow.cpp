@@ -42,18 +42,39 @@ void MainWindow::on_connectButton_clicked(){
     clearDisplay();
     update("Connecting to device...");
     // create a new BLE client with the selected device IP address
-    bluetoothClient = new BluetoothLowEnergyClient(ui->knobSelectionComboBox->currentText());
+    qInfo() << ui->knobAddress->text();
+    qInfo() << ui->knobSelectionComboBox->currentText();
+    if (ui->knobAddress->text().size() == 17)
+        bluetoothClient = new BluetoothLowEnergyClient(ui->knobAddress->text());
+    else
+        bluetoothClient = new BluetoothLowEnergyClient(ui->knobSelectionComboBox->currentText());
 
     // connect signals to slots
     connect(bluetoothClient, &BluetoothLowEnergyClient::deviceConnected, this, &MainWindow::doneConnecting);
     connect(bluetoothClient, &BluetoothLowEnergyClient::doneProcessing, this, &MainWindow::doneDisconnecting);
     connect(bluetoothClient->getDataHandler(), &KinventKForceDataHandler::processMeasurementMultiplierFinished, this, &MainWindow::updateDisplay);
     connect(bluetoothClient->getDataHandler(), &KinventKForceDataHandler::processBaselineFinished, this, &MainWindow::updateDisplay);
+    connect(bluetoothClient->getDataHandler(), &KinventKForceDataHandler::processBatteryLevelFinished, this, &MainWindow::updateDisplay);
+    connect(bluetoothClient->getDataHandler(), &KinventKForceDataHandler::processFirmwareVersionFinished, this, &MainWindow::updateDisplay);
     connect(bluetoothClient->getDataHandler(), &KinventKForceDataHandler::processingFinished, this, &MainWindow::updateDisplay);
     connect(bluetoothClient->getDataHandler(), &KinventKForceDataHandler::processRealTimeClockFinished, this, &MainWindow::updateDisplay);
 
     // start the client
     bluetoothClient->start();
+};
+
+void MainWindow::on_getSerialPortsInfoButton_clicked()
+{
+    update("Getting serial ports info...");
+    QString portsInfo = "Ports info: \n";
+    QList<QSerialPortInfo> infoList = QSerialPortInfo::availablePorts();
+    foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts()) {
+        portsInfo += "Name : " + info.portName() + "\n";
+        portsInfo += "Description : " + info.description() + "\n";
+        portsInfo += "Manufacturer: " + info.manufacturer() + "\n";
+        portsInfo += "\n";
+    }
+    update(portsInfo);
 };
 
 void MainWindow::on_getMeasurementMultiplierButton_clicked()
@@ -98,6 +119,18 @@ void MainWindow::on_resetMemoryButton_clicked()
     }
 };
 
+void MainWindow::on_getBatteryLevelButton_clicked()
+{
+    update("Getting battery level...");
+    bluetoothClient->getBatteryLevel();
+};
+
+void MainWindow::on_getFirmwareVersionButton_clicked()
+{
+    update("Getting firmware version...");
+    bluetoothClient->getFirmwareVersion();
+}
+
 void MainWindow::on_getRealTimeClockButton_clicked()
 {
     update("Getting real time clock...");
@@ -108,6 +141,12 @@ void MainWindow::on_setTimeClockButton_clicked()
 {
     update("Setting real time clock... Done!");
     bluetoothClient->setTimeClock();
+}
+
+void MainWindow::on_resetBaselinesButton_clicked()
+{
+    update("Resetting baselines... Done!");
+    bluetoothClient->resetBaselines();
 }
 
 void MainWindow::on_disconnectButton_clicked()

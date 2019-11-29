@@ -2,6 +2,7 @@
 #define KINVENTKFORCEDATAHANDLER_H
 
 #include "datahandler.h"
+#include <QSaveFile>
 
 /// @brief Class for Kinvent KForce data handler
 /// @author Ali Ghezal
@@ -25,6 +26,12 @@ public:
     /// @brief Set baselines from received data
     /// @param data  the received data
     void setBaseline(const QByteArray &data);
+    /// @brief Set the battery level from received data
+    /// @param data  the received data
+    void setBatteryLevel(const QByteArray &data);
+    /// @brief Set the firmware version from received data
+    /// @param data  the received data
+    void setFirmwareVersion(const QByteArray &data);
     /// @brief Set real time clock from received data
     /// @param data  the received data
     void setRealTimeClock(const QByteArray &data);
@@ -43,13 +50,17 @@ private:
     double  measurementMultiplier;
     int     baseline1;
     int     baseline2;
+    int     batteryLevel;
     tm      *realTimeClock;
     QString message;
+    QString firmwareVersion;
 
 signals:
     void processMeasurementMultiplierFinished();
     void processBaselineFinished();
+    void processBatteryLevelFinished();
     void processRealTimeClockFinished();
+    void processFirmwareVersionFinished();
 };
 
 #endif // KINVENTKFORCEDATAHANDLER_H

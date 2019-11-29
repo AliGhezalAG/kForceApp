@@ -15,6 +15,10 @@ enum Request {
     GET_MEASUREMENT,
     /// Get real time clock request
     GET_REAL_TIME_CLOCK,
+    /// Get battery level request
+    GET_BATTERY_LEVEL,
+    /// Get firmware version
+    GET_FIRMWARE_VERSION,
     /// No request
     NO_REQUEST
 };
@@ -60,6 +64,12 @@ public:
     void getData();
     /// @brief Command to reset internal memory.
     void resetMemory();
+    /// @brief Command to reset the baselines.
+    void resetBaselines();
+    /// @brief Command to get the battery level.
+    void getBatteryLevel();
+    /// @brief Command to get the firmware version.
+    void getFirmwareVersion();
     /// @brief Stop client.
     void stop();
 

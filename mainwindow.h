@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QMessageBox>
+#include <QSerialPort>
+#include <QSerialPortInfo>
 #include "bluetoothlowenergyclient.h"
 
 namespace Ui {
@@ -31,6 +33,7 @@ private:
     BluetoothLowEnergyClient    *bluetoothClient;
 
 private slots:
+    void on_getSerialPortsInfoButton_clicked();
     void on_connectButton_clicked();
     void on_getMeasurementMultiplierButton_clicked();
     void on_getBaselinesButton_clicked();
@@ -39,6 +42,9 @@ private slots:
     void on_getRealTimeClockButton_clicked();
     void on_setTimeClockButton_clicked();
     void on_disconnectButton_clicked();
+    void on_getBatteryLevelButton_clicked();
+    void on_resetBaselinesButton_clicked();
+    void on_getFirmwareVersionButton_clicked();
     void updateDisplay();
     void clearDisplay();
     void doneDisconnecting();
