@@ -20,7 +20,7 @@ using namespace std;
 #define RESET_MEMORY_COMMAND                "68"
 #define GET_BATTERY_LEVE_COMMAND            "81"
 #define GET_FIRMWARE_VERSION_COMMAND        "09"
-#define MEASUREMENT_MULTIPLIER_DENOMINATOR  2000000.0
+#define MEASUREMENT_MULTIPLIER_DENOMINATOR  1000000.0
 #define TIMESTAMP_OFFSET                    946684800
 #define MEMORY_SIZE                         131071
 

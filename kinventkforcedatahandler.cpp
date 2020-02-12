@@ -101,11 +101,13 @@ void KinventKForceDataHandler::processData(QString &deviceAddress, QByteArray &r
     // init counters
     int packetsCount = 0; //packets counter
     int count = 0;  // processed data size counter
+    QByteArray dataNb = receivedData.mid(count,3);
 
     // while all data is not yet processed
     while(count < receivedData.size()){
 
         // get the entry data size (in number of bytes)
+        dataNb = receivedData.mid(count,3);
         int entryDataNb = byteArrayToInt(receivedData.mid(count,3));
 
         // if no data, break
@@ -113,7 +115,7 @@ void KinventKForceDataHandler::processData(QString &deviceAddress, QByteArray &r
             break;
 
         // get the entry timestamp
-        int entryTimeStamp = byteArrayToInt(receivedData.mid(count+3,4));
+        int entryTimeStamp = byteArrayToInt(receivedData.mid(count+3,4)) + TIMESTAMP_OFFSET;
 
         // write the general infos in the output file
         logFile << timeDateStr << ","
@@ -131,7 +133,7 @@ void KinventKForceDataHandler::processData(QString &deviceAddress, QByteArray &r
         // process measurements packets
         // the general infos data is encoded in 7 bytes, so the measurement packet starts at the entry start index + 7
         // each measurement is encoded in 4 bytes (2 for channel 1 and 2 for channel 2) so we use a step of 4
-        for (int j = count + 7; j < count + static_cast<int>(entryDataNb) ; j+=4) {
+        for (int j = count + 7; j < count + 7 + static_cast<int>(entryDataNb) ; j+=4) {
             // get the base measurments
             int baseMes1 = byteArrayToInt(receivedData.mid(j,2));
             int baseMes2 = byteArrayToInt(receivedData.mid(j+2,2));
