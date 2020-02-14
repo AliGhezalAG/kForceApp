@@ -38,6 +38,7 @@ private slots:
     void on_getMeasurementMultiplierButton_clicked();
     void on_getBaselinesButton_clicked();
     void on_dumpMemoryButton_clicked();
+    void on_getStoredDataButton_clicked();
     void on_resetMemoryButton_clicked();
     void on_getRealTimeClockButton_clicked();
     void on_setTimeClockButton_clicked();

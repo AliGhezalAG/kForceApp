@@ -13,6 +13,8 @@ enum Request {
     GET_BASELINES,
     /// Get measurements (dump memory data) request
     GET_MEASUREMENT,
+    /// Get measurements (stored data) request
+    GET_STORED_MEASUREMENT,
     /// Get real time clock request
     GET_REAL_TIME_CLOCK,
     /// Get battery level request
@@ -62,6 +64,8 @@ public:
     void getBaseline();
     /// @brief Command to dump all data from memory.
     void getData();
+    /// @brief Command to g.et stored data.
+    void getStoredData();
     /// @brief Command to reset internal memory.
     void resetMemory();
     /// @brief Command to reset the baselines.

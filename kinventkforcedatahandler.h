@@ -20,6 +20,10 @@ public:
     /// @param deviceAddress  the bluetooth device IP address
     /// @param receivedData  the received data
     void processData(QString &deviceAddress, QByteArray &receivedData);
+    /// @brief Process stored data
+    /// @param deviceAddress  the bluetooth device IP address
+    /// @param receivedData  the received data
+    void processStoredData(QString &deviceAddress, QByteArray &receivedData);
     /// @brief Set measurement multiplier from received data
     /// @param data  the received data
     void setMeasurementMultiplier(const QByteArray &data);

@@ -171,6 +171,80 @@ void KinventKForceDataHandler::processData(QString &deviceAddress, QByteArray &r
     emit processingFinished();
 }
 
+void KinventKForceDataHandler::processStoredData(QString &deviceAddress, QByteArray &receivedData)
+{
+    // get the system time clock
+    std::time_t timeDate = std::time(nullptr);
+    string timeDateStr = std::ctime(&timeDate);
+    timeDateStr.erase(std::remove(timeDateStr.begin(), timeDateStr.end(), '\n'), timeDateStr.end());
+
+    // define the output file name
+    QString resultFileName = deviceAddress + "-results.csv";
+
+    // create the output folder if it doesn't exist
+    QDir dir(RESULTS_DIR_PATH);
+    if (!dir.exists())
+        dir.mkpath(".");
+
+    // open the output file stream
+    logFile.open (RESULTS_DIR_PATH + resultFileName.toStdString(), ios::out | ios::app);
+
+    // set the output file header
+    logFile << "Time/date, Device address, Timestamp, Nb of measures, Measure 1, Measure 2" << endl;
+
+    // init counters
+    int packetsCount = byteArrayToInt(receivedData.mid(3,3));
+    int entryDataNb = 0;
+    int count = 6;
+
+    for (int i=0 ; i<packetsCount ; i++){
+        // get the entry data size (in number of bytes)
+        entryDataNb = byteArrayToInt(receivedData.mid(count,3));
+
+        // get the entry timestamp
+        int entryTimeStamp = byteArrayToInt(receivedData.mid(count+3,4)) + TIMESTAMP_OFFSET;
+
+        // write the general infos in the output file
+        logFile << timeDateStr << ","
+                << deviceAddress.toStdString() << ","
+                << entryTimeStamp << ","
+                << entryDataNb << ","
+                <<  ","
+                <<  ","
+                <<  ","
+                << endl;
+
+        // process measurements packets
+        // the general infos data is encoded in 7 bytes, so the measurement packet starts at the entry start index + 7
+        // each measurement is encoded in 6 bytes (3 for channel 1 and 3 for channel 2) so we use a step of 6
+        for (int j = count + 7; j < count + 7 + (static_cast<int>(entryDataNb)*6) ; j+=6) {
+            double mes1 = byteArrayToInt(receivedData.mid(j,3))/1000.0;
+            double mes2 = byteArrayToInt(receivedData.mid(j+3,3))/1000.0;
+
+            // write the measurement values in the output file
+            logFile << ","
+                    << ","
+                    << ","
+                    << ","
+                    << mes1 << ","
+                    << mes2
+                    << endl;
+        }
+        // increment the processed packets size coounter
+        // 10 = 7 for general infos + 3 for episeparator
+        count += (static_cast<int>(entryDataNb)*6)+10;
+    }
+
+    // close the output file stream
+    logFile.close();
+    // create the update message
+    message =   "Data processing finished! \n" +
+            QString::number(packetsCount) + " entries received \n" +
+            resultFileName + " created successfully!";
+    emit processingFinished();
+
+}
+
 double KinventKForceDataHandler::getMeasurementMultiplier()
 {
     return measurementMultiplier;

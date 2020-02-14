@@ -176,6 +176,13 @@ void BluetoothLowEnergyClient::getData()
     write(command);
 }
 
+void BluetoothLowEnergyClient::getStoredData()
+{
+    request = GET_STORED_MEASUREMENT;
+    QByteArray command = QByteArray::fromHex(GET_STORED_DATA_COMMAND);
+    write(command);
+}
+
 void BluetoothLowEnergyClient::resetMemory()
 {
     QByteArray command = QByteArray::fromHex(RESET_MEMORY_COMMAND);
@@ -215,6 +222,9 @@ void BluetoothLowEnergyClient::ajouterService(QBluetoothUuid serviceUuid)
 
 void BluetoothLowEnergyClient::serviceCharacteristicChanged(const QLowEnergyCharacteristic &c, const QByteArray &value)
 {
+
+    QByteArray test = QByteArray::fromHex(END_OF_TRANSMISSION);
+    QSaveFile file("./results/dataDumpTest");
     // if read characteristic changed, process the received data based on the request type
     if (c.uuid().toString() == CHARACTERISTIC_UUID)
     {
@@ -232,6 +242,21 @@ void BluetoothLowEnergyClient::serviceCharacteristicChanged(const QLowEnergyChar
             receivedData.append(value);
             if (receivedData.size() >= MEMORY_SIZE){
                 dataHandler->processData(this->deviceAddress, receivedData);
+                request = NO_REQUEST;
+                receivedData.clear();
+            }
+            break;
+        case GET_STORED_MEASUREMENT :
+
+            receivedData.append(value);
+            // Save the data to a file.
+            file.open(QIODevice::WriteOnly);
+            file.write(receivedData);
+            // Calling commit() is mandatory, otherwise nothing will be written.
+            file.commit();
+
+            if (receivedData.endsWith(QByteArray::fromHex(END_OF_TRANSMISSION))){
+                dataHandler->processStoredData(this->deviceAddress, receivedData);
                 request = NO_REQUEST;
                 receivedData.clear();
             }

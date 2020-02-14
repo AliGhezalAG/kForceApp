@@ -95,6 +95,12 @@ void MainWindow::on_dumpMemoryButton_clicked()
     bluetoothClient->getData();
 };
 
+void MainWindow::on_getStoredDataButton_clicked()
+{
+    update("Getting stored data...");
+    bluetoothClient->getStoredData();
+};
+
 void MainWindow::on_resetMemoryButton_clicked()
 {
     // when reset memory is requested, we trigger a message ox to make sure this is the command the user really wanted

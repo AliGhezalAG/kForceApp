@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>797</width>
-    <height>655</height>
+    <height>688</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -105,7 +105,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>230</y>
+      <y>270</y>
       <width>281</width>
       <height>25</height>
      </rect>
@@ -128,7 +128,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>270</y>
+      <y>310</y>
       <width>281</width>
       <height>25</height>
      </rect>
@@ -141,7 +141,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>310</y>
+      <y>350</y>
       <width>281</width>
       <height>25</height>
      </rect>
@@ -154,7 +154,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>550</y>
+      <y>590</y>
       <width>281</width>
       <height>25</height>
      </rect>
@@ -167,7 +167,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>350</y>
+      <y>390</y>
       <width>281</width>
       <height>25</height>
      </rect>
@@ -180,7 +180,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>390</y>
+      <y>430</y>
       <width>281</width>
       <height>25</height>
      </rect>
@@ -193,7 +193,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>430</y>
+      <y>470</y>
       <width>281</width>
       <height>25</height>
      </rect>
@@ -206,7 +206,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>470</y>
+      <y>510</y>
       <width>281</width>
       <height>25</height>
      </rect>
@@ -229,13 +229,26 @@
     <property name="geometry">
      <rect>
       <x>28</x>
-      <y>510</y>
+      <y>550</y>
       <width>281</width>
       <height>25</height>
      </rect>
     </property>
     <property name="text">
      <string>Get serial ports info</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="getStoredDataButton">
+    <property name="geometry">
+     <rect>
+      <x>28</x>
+      <y>230</y>
+      <width>281</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Get stored data</string>
     </property>
    </widget>
   </widget>

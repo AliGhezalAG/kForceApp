@@ -11,18 +11,24 @@ using namespace std;
 
 #define SERVICE_UUID                        "{49535343-fe7d-4ae5-8fa9-9fafd205e455}"
 #define CHARACTERISTIC_UUID                 "{49535343-1e4d-4bd9-ba61-23c647249616}"
-#define GET_REAL_TIME_CLOCK_COMMAND         "70"
-#define SET_TIME_CLOCK_COMMAND              "71"
+#define GET_FIRMWARE_VERSION_COMMAND        "09"
 #define GET_MEASURE_MULYIPLIER_COMMAND      "21"
 #define RESET_BASELINE_COMMAND              "42"
 #define GET_BASELINE_COMMAND                "43"
+#define GET_STORED_DATA_COMMAND             "65"
 #define GET_MEMORY_DUMP_COMMAND             "67"
 #define RESET_MEMORY_COMMAND                "68"
+#define GET_REAL_TIME_CLOCK_COMMAND         "70"
+#define SET_TIME_CLOCK_COMMAND              "71"
+#define SET_ALARM_SET_POINT_COMMAND         "73"
+#define GET_ALARM_SET_POINT_COMMAND         "74"
+#define SET_ALARM_PERIOD_COMMAND            "75"
+#define GET_MEMORY_USAGE_COMMAND            "80"
 #define GET_BATTERY_LEVE_COMMAND            "81"
-#define GET_FIRMWARE_VERSION_COMMAND        "09"
 #define MEASUREMENT_MULTIPLIER_DENOMINATOR  1000000.0
 #define TIMESTAMP_OFFSET                    946684800
 #define MEMORY_SIZE                         131071
+#define END_OF_TRANSMISSION                 "000000000000"
 
 // UTT board params
 #define PACKET_SIZE                         12
