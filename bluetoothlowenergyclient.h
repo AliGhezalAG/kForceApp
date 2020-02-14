@@ -17,11 +17,13 @@ enum Request {
     GET_STORED_MEASUREMENT,
     /// Get real time clock request
     GET_REAL_TIME_CLOCK,
+    /// Get alarm set point request
+    GET_ALARM_SET_POINT,
     /// Get battery level request
     GET_BATTERY_LEVEL,
-    /// Get memory usage level
+    /// Get memory usage level request
     GET_MEMORY_USAGE_LEVEL,
-    /// Get firmware version
+    /// Get firmware version request
     GET_FIRMWARE_VERSION,
     /// No request
     NO_REQUEST
@@ -58,8 +60,12 @@ public:
     QString getMessage();
     /// @brief Command to set time clock.
     void setTimeClock();
+    /// @brief Command to set alarm set-point.
+    void setAlarmSetPoint(int hours, int minutes);
     /// @brief Command to get real time clock.
     void getRealTimeClock();
+    /// @brief Command to get alarm set-point
+    void getAlarmSetPoint();
     /// @brief Command to get measurement multiplier.
     void getMeasurementMultiplier();
     /// @brief Command to get baselines.

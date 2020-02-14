@@ -79,6 +79,26 @@ void KinventKForceDataHandler::setRealTimeClock(const QByteArray &data)
     emit processRealTimeClockFinished();
 }
 
+void KinventKForceDataHandler::setAlarmSetPoint(const QByteArray &data)
+{
+    // initiate a new tm from the received data
+    realTimeClock = new tm();
+    realTimeClock->tm_hour = byteArrayToInt(data.mid(0,1)); //hours
+    realTimeClock->tm_min = byteArrayToInt(data.mid(1,1));  //minutes
+    realTimeClock->tm_sec = byteArrayToInt(data.mid(2,1));  //seconds
+    realTimeClock->tm_year = byteArrayToInt(data.mid(3,1))+100; //year
+    realTimeClock->tm_mon = byteArrayToInt(data.mid(4,1))-1;    //month
+    realTimeClock->tm_mday = byteArrayToInt(data.mid(5,1)); //month day
+    realTimeClock->tm_wday = byteArrayToInt(data.mid(6,1)); //weak day
+
+    // put the formatted tm into a string stream
+    stringstream transTime;
+    transTime << "Alarm set-point : " << put_time(realTimeClock, "%a %d %b %Y - %I:%M:%S%p");
+    // get the stream into a string and set the update message
+    message = QString::fromStdString(transTime.str());
+    emit processRealTimeClockFinished();
+}
+
 void KinventKForceDataHandler::processData(QString &deviceAddress, QByteArray &receivedData)
 {
 

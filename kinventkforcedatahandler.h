@@ -42,6 +42,9 @@ public:
     /// @brief Set real time clock from received data
     /// @param data  the received data
     void setRealTimeClock(const QByteArray &data);
+    /// @brief Set alarm set-point from received data
+    /// @param data  the received data
+    void setAlarmSetPoint(const QByteArray &data);
     /// @brief Measurement multiplier getter
     double getMeasurementMultiplier();
     /// @brief Baseline 1 getter

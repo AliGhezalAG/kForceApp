@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>797</width>
-    <height>738</height>
+    <height>775</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -154,7 +154,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>630</y>
+      <y>670</y>
       <width>281</width>
       <height>25</height>
      </rect>
@@ -180,7 +180,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>430</y>
+      <y>510</y>
       <width>281</width>
       <height>25</height>
      </rect>
@@ -193,7 +193,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>510</y>
+      <y>590</y>
       <width>281</width>
       <height>25</height>
      </rect>
@@ -206,7 +206,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>550</y>
+      <y>630</y>
       <width>281</width>
       <height>25</height>
      </rect>
@@ -223,19 +223,6 @@
       <width>151</width>
       <height>25</height>
      </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="getSerialPortsInfoButton">
-    <property name="geometry">
-     <rect>
-      <x>28</x>
-      <y>590</y>
-      <width>281</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Get serial ports info</string>
     </property>
    </widget>
    <widget class="QPushButton" name="getStoredDataButton">
@@ -255,13 +242,85 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>470</y>
+      <y>550</y>
       <width>281</width>
       <height>25</height>
      </rect>
     </property>
     <property name="text">
      <string>Get memory usage level</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="getAlarmSetPointButton">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>430</y>
+      <width>281</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Get alarm set point</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="hoursToSet">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>580</y>
+      <width>51</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="minutesToSet">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>580</y>
+      <width>51</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="HoursLabel">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>580</y>
+      <width>51</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Hour</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="MinutesLabel">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>580</y>
+      <width>51</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Min</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="setAlarmSetPointButton">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>470</y>
+      <width>281</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Set alarm set point</string>
     </property>
    </widget>
   </widget>

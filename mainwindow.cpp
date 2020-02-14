@@ -64,20 +64,6 @@ void MainWindow::on_connectButton_clicked(){
     bluetoothClient->start();
 };
 
-void MainWindow::on_getSerialPortsInfoButton_clicked()
-{
-    update("Getting serial ports info...");
-    QString portsInfo = "Ports info: \n";
-    QList<QSerialPortInfo> infoList = QSerialPortInfo::availablePorts();
-    foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts()) {
-        portsInfo += "Name : " + info.portName() + "\n";
-        portsInfo += "Description : " + info.description() + "\n";
-        portsInfo += "Manufacturer: " + info.manufacturer() + "\n";
-        portsInfo += "\n";
-    }
-    update(portsInfo);
-};
-
 void MainWindow::on_getMeasurementMultiplierButton_clicked()
 {
     update("Getting measurement multiplier...");
@@ -148,6 +134,18 @@ void MainWindow::on_getRealTimeClockButton_clicked()
 {
     update("Getting real time clock...");
     bluetoothClient->getRealTimeClock();
+};
+
+void MainWindow::on_getAlarmSetPointButton_clicked()
+{
+    update("Getting alarm set-point...");
+    bluetoothClient->getAlarmSetPoint();
+};
+
+void MainWindow::on_setAlarmSetPointButton_clicked()
+{
+    update("Setting alarm set-point...");
+    bluetoothClient->setAlarmSetPoint(ui->hoursToSet->text().toInt(), ui->minutesToSet->text().toInt());
 };
 
 void MainWindow::on_setTimeClockButton_clicked()

@@ -33,7 +33,6 @@ private:
     BluetoothLowEnergyClient    *bluetoothClient;
 
 private slots:
-    void on_getSerialPortsInfoButton_clicked();
     void on_connectButton_clicked();
     void on_getMeasurementMultiplierButton_clicked();
     void on_getBaselinesButton_clicked();
@@ -42,6 +41,8 @@ private slots:
     void on_resetMemoryButton_clicked();
     void on_getRealTimeClockButton_clicked();
     void on_setTimeClockButton_clicked();
+    void on_getAlarmSetPointButton_clicked();
+    void on_setAlarmSetPointButton_clicked();
     void on_disconnectButton_clicked();
     void on_getBatteryLevelButton_clicked();
     void on_getMemoryUsageLevelButton_clicked();

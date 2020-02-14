@@ -99,7 +99,6 @@ void BluetoothLowEnergyClient::gererNotification(bool notification)
     }
 }
 
-// TODO
 void BluetoothLowEnergyClient::setTimeClock()
 {
     time_t now = time(nullptr);
@@ -134,10 +133,74 @@ void BluetoothLowEnergyClient::setTimeClock()
     write(command);
 }
 
+void BluetoothLowEnergyClient::setAlarmSetPoint(int hours = -1, int minutes = -1)
+{
+    time_t now = time(nullptr);
+    tm *ltm = localtime(&now);
+
+    if (hours > 0 && minutes > 0) {
+        ltm->tm_hour = hours;
+        ltm->tm_min = minutes;
+    } else if (hours > 0) {
+        ltm->tm_hour = hours;
+        ltm->tm_min = 0;
+    } else if (minutes > 0) {
+        ltm->tm_min = minutes;
+    } else {
+        if (ltm->tm_min < 15) {
+            ltm->tm_min = 15;
+        } else if (ltm->tm_min < 30) {
+            ltm->tm_min = 30;
+        } else if (ltm->tm_min < 45) {
+            ltm->tm_min = 45;
+        } else {
+            ltm->tm_hour += 1;
+            ltm->tm_min = 0;
+        }
+    }
+
+    ltm->tm_sec = 0;
+
+    qInfo() << "Alarm point set to:" << endl;
+    qInfo() << "Year: " << 1900 + ltm->tm_year<<endl;
+    qInfo() << "Month: "<< 1 + ltm->tm_mon<< endl;
+    qInfo() << "Day: "<<  ltm->tm_mday << endl;
+    qInfo() << "Day of week: "<<  ltm->tm_wday << endl;
+    qInfo() << "Time: "<< ltm->tm_hour << ":" << ltm->tm_min << ":" << ltm->tm_sec << endl;
+
+    QByteArray timeClock;
+    QByteArray ba;
+    ba.setNum(ltm->tm_hour, 16);
+    timeClock.append(QByteArray::fromHex(ba));
+    ba.setNum(ltm->tm_min, 16);
+    timeClock.append(QByteArray::fromHex(ba));
+    ba.setNum(ltm->tm_sec, 16);
+    timeClock.append(QByteArray::fromHex(ba));
+    ba.setNum(ltm->tm_year - 100, 16);
+    timeClock.append(QByteArray::fromHex(ba));
+    ba.setNum(1 + ltm->tm_mon, 16);
+    timeClock.append(QByteArray::fromHex(ba));
+    ba.setNum(ltm->tm_mday, 16);
+    timeClock.append(QByteArray::fromHex(ba));
+    ba.setNum(ltm->tm_wday, 16);
+    timeClock.append(QByteArray::fromHex(ba));
+
+    QByteArray command = QByteArray::fromHex(SET_ALARM_SET_POINT_COMMAND);
+    command.append(timeClock);
+    write(command);
+}
+
 void BluetoothLowEnergyClient::getRealTimeClock()
 {
     request = GET_REAL_TIME_CLOCK;
     QByteArray command = QByteArray::fromHex(GET_REAL_TIME_CLOCK_COMMAND);
+    write(command);
+}
+
+void BluetoothLowEnergyClient::getAlarmSetPoint()
+{
+    request = GET_ALARM_SET_POINT;
+    QByteArray command = QByteArray::fromHex(GET_ALARM_SET_POINT_COMMAND);
     write(command);
 }
 
@@ -270,6 +333,10 @@ void BluetoothLowEnergyClient::serviceCharacteristicChanged(const QLowEnergyChar
             break;
         case GET_REAL_TIME_CLOCK :
             dataHandler->setRealTimeClock(value);
+            request = NO_REQUEST;
+            break;
+        case GET_ALARM_SET_POINT :
+            dataHandler->setAlarmSetPoint(value);
             request = NO_REQUEST;
             break;
         case GET_BATTERY_LEVEL :
