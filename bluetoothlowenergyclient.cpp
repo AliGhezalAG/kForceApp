@@ -114,20 +114,20 @@ void BluetoothLowEnergyClient::setTimeClock()
 
     QByteArray timeClock;
     QByteArray ba;
-    ba.setNum(1900 + ltm->tm_year, 16);
-    timeClock.append(ba);
-    ba.setNum(1 + ltm->tm_min, 16);
-    timeClock.append(ba);
+    ba.setNum(ltm->tm_hour, 16);
+    timeClock.append(QByteArray::fromHex(ba));
+    ba.setNum(ltm->tm_min, 16);
+    timeClock.append(QByteArray::fromHex(ba));
     ba.setNum(1 + ltm->tm_sec, 16);
-    timeClock.append(ba);
-    ba.setNum(1900 + ltm->tm_year, 16);
-    timeClock.append(ba);
+    timeClock.append(QByteArray::fromHex(ba));
+    ba.setNum(ltm->tm_year - 100, 16);
+    timeClock.append(QByteArray::fromHex(ba));
     ba.setNum(1 + ltm->tm_mon, 16);
-    timeClock.append(ba);
+    timeClock.append(QByteArray::fromHex(ba));
     ba.setNum(ltm->tm_mday, 16);
-    timeClock.append(ba);
+    timeClock.append(QByteArray::fromHex(ba));
     ba.setNum(ltm->tm_wday, 16);
-    timeClock.append(ba);
+    timeClock.append(QByteArray::fromHex(ba));
 
     QByteArray command = QByteArray::fromHex(SET_TIME_CLOCK_COMMAND);
     command.append(timeClock);
@@ -158,7 +158,14 @@ void BluetoothLowEnergyClient::getBaseline()
 void BluetoothLowEnergyClient::getBatteryLevel()
 {
     request = GET_BATTERY_LEVEL;
-    QByteArray command = QByteArray::fromHex(GET_BATTERY_LEVE_COMMAND);
+    QByteArray command = QByteArray::fromHex(GET_BATTERY_LEVEL_COMMAND);
+    write(command);
+}
+
+void BluetoothLowEnergyClient::getMemoryUsageLevel()
+{
+    request = GET_MEMORY_USAGE_LEVEL;
+    QByteArray command = QByteArray::fromHex(GET_MEMORY_USAGE_COMMAND);
     write(command);
 }
 
@@ -267,6 +274,10 @@ void BluetoothLowEnergyClient::serviceCharacteristicChanged(const QLowEnergyChar
             break;
         case GET_BATTERY_LEVEL :
             dataHandler->setBatteryLevel(value);
+            request = NO_REQUEST;
+            break;
+        case GET_MEMORY_USAGE_LEVEL :
+            dataHandler->setMemoryUsageLevel(value);
             request = NO_REQUEST;
             break;
         case GET_FIRMWARE_VERSION :

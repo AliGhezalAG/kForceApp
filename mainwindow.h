@@ -44,6 +44,7 @@ private slots:
     void on_setTimeClockButton_clicked();
     void on_disconnectButton_clicked();
     void on_getBatteryLevelButton_clicked();
+    void on_getMemoryUsageLevelButton_clicked();
     void on_resetBaselinesButton_clicked();
     void on_getFirmwareVersionButton_clicked();
     void updateDisplay();

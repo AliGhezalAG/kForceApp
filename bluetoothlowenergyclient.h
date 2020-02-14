@@ -19,6 +19,8 @@ enum Request {
     GET_REAL_TIME_CLOCK,
     /// Get battery level request
     GET_BATTERY_LEVEL,
+    /// Get memory usage level
+    GET_MEMORY_USAGE_LEVEL,
     /// Get firmware version
     GET_FIRMWARE_VERSION,
     /// No request
@@ -72,6 +74,8 @@ public:
     void resetBaselines();
     /// @brief Command to get the battery level.
     void getBatteryLevel();
+    /// @brief Command to get the memory usage level.
+    void getMemoryUsageLevel();
     /// @brief Command to get the firmware version.
     void getFirmwareVersion();
     /// @brief Stop client.

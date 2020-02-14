@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>797</width>
-    <height>688</height>
+    <height>738</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -154,7 +154,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>590</y>
+      <y>630</y>
       <width>281</width>
       <height>25</height>
      </rect>
@@ -193,7 +193,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>470</y>
+      <y>510</y>
       <width>281</width>
       <height>25</height>
      </rect>
@@ -206,7 +206,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>510</y>
+      <y>550</y>
       <width>281</width>
       <height>25</height>
      </rect>
@@ -229,7 +229,7 @@
     <property name="geometry">
      <rect>
       <x>28</x>
-      <y>550</y>
+      <y>590</y>
       <width>281</width>
       <height>25</height>
      </rect>
@@ -249,6 +249,19 @@
     </property>
     <property name="text">
      <string>Get stored data</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="getMemoryUsageLevelButton">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>470</y>
+      <width>281</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Get memory usage level</string>
     </property>
    </widget>
   </widget>

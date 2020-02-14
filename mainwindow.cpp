@@ -55,6 +55,7 @@ void MainWindow::on_connectButton_clicked(){
     connect(bluetoothClient->getDataHandler(), &KinventKForceDataHandler::processMeasurementMultiplierFinished, this, &MainWindow::updateDisplay);
     connect(bluetoothClient->getDataHandler(), &KinventKForceDataHandler::processBaselineFinished, this, &MainWindow::updateDisplay);
     connect(bluetoothClient->getDataHandler(), &KinventKForceDataHandler::processBatteryLevelFinished, this, &MainWindow::updateDisplay);
+    connect(bluetoothClient->getDataHandler(), &KinventKForceDataHandler::processMemoryUsageLevelFinished, this, &MainWindow::updateDisplay);
     connect(bluetoothClient->getDataHandler(), &KinventKForceDataHandler::processFirmwareVersionFinished, this, &MainWindow::updateDisplay);
     connect(bluetoothClient->getDataHandler(), &KinventKForceDataHandler::processingFinished, this, &MainWindow::updateDisplay);
     connect(bluetoothClient->getDataHandler(), &KinventKForceDataHandler::processRealTimeClockFinished, this, &MainWindow::updateDisplay);
@@ -129,6 +130,12 @@ void MainWindow::on_getBatteryLevelButton_clicked()
 {
     update("Getting battery level...");
     bluetoothClient->getBatteryLevel();
+};
+
+void MainWindow::on_getMemoryUsageLevelButton_clicked()
+{
+    update("Getting memory usage level...");
+    bluetoothClient->getMemoryUsageLevel();
 };
 
 void MainWindow::on_getFirmwareVersionButton_clicked()

@@ -33,6 +33,9 @@ public:
     /// @brief Set the battery level from received data
     /// @param data  the received data
     void setBatteryLevel(const QByteArray &data);
+    /// @brief Set the memory usage level from received data
+    /// @param data  the received data
+    void setMemoryUsageLevel(const QByteArray &data);
     /// @brief Set the firmware version from received data
     /// @param data  the received data
     void setFirmwareVersion(const QByteArray &data);
@@ -55,6 +58,7 @@ private:
     int     baseline1;
     int     baseline2;
     int     batteryLevel;
+    int     memoryUsageLevel;
     tm      *realTimeClock;
     QString message;
     QString firmwareVersion;
@@ -63,6 +67,7 @@ signals:
     void processMeasurementMultiplierFinished();
     void processBaselineFinished();
     void processBatteryLevelFinished();
+    void processMemoryUsageLevelFinished();
     void processRealTimeClockFinished();
     void processFirmwareVersionFinished();
 };

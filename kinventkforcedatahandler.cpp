@@ -34,8 +34,18 @@ void KinventKForceDataHandler::setBatteryLevel(const QByteArray &data)
     batteryLevel = byteArrayToInt(data.mid(1,1));
     // create the update message
     message = "Battery level : "
-            + QString::number(batteryLevel);
+            + QString::number(batteryLevel) + "%";
     emit processBatteryLevelFinished();
+}
+
+void KinventKForceDataHandler::setMemoryUsageLevel(const QByteArray &data)
+{
+    // get second byte from read data
+    memoryUsageLevel = byteArrayToInt(data.mid(1,1));
+    // create the update message
+    message = "Memory usage level : "
+            + QString::number(memoryUsageLevel) + "%";
+    emit processMemoryUsageLevelFinished();
 }
 
 void KinventKForceDataHandler::setFirmwareVersion(const QByteArray &data)
