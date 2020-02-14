@@ -62,6 +62,8 @@ public:
     void setTimeClock();
     /// @brief Command to set alarm set-point.
     void setAlarmSetPoint(int hours, int minutes);
+    /// @brief Command to set alarm period.
+    void setAlarmPeriod(int periodToSet);
     /// @brief Command to get real time clock.
     void getRealTimeClock();
     /// @brief Command to get alarm set-point

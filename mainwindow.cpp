@@ -148,6 +148,12 @@ void MainWindow::on_setAlarmSetPointButton_clicked()
     bluetoothClient->setAlarmSetPoint(ui->hoursToSet->text().toInt(), ui->minutesToSet->text().toInt());
 };
 
+void MainWindow::on_setAlarmPeriodButton_clicked()
+{
+    update("Setting alarm period...");
+    bluetoothClient->setAlarmPeriod(ui->alarmPeriodToSet->text().toInt());
+};
+
 void MainWindow::on_setTimeClockButton_clicked()
 {
     update("Setting real time clock... Done!");

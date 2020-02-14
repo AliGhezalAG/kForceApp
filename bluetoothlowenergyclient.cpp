@@ -190,6 +190,19 @@ void BluetoothLowEnergyClient::setAlarmSetPoint(int hours = -1, int minutes = -1
     write(command);
 }
 
+void BluetoothLowEnergyClient::setAlarmPeriod(int periodToSet)
+{
+    QByteArray period;
+    period.setNum(periodToSet, 16);
+
+    QByteArray hexPeriod;
+    hexPeriod.append(QByteArray::fromHex(period));
+
+    QByteArray command = QByteArray::fromHex(SET_ALARM_PERIOD_COMMAND);
+    command.append(hexPeriod.rightJustified(4, '\0'));
+    write(command);
+}
+
 void BluetoothLowEnergyClient::getRealTimeClock()
 {
     request = GET_REAL_TIME_CLOCK;

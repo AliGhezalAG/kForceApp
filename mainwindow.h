@@ -43,6 +43,7 @@ private slots:
     void on_setTimeClockButton_clicked();
     void on_getAlarmSetPointButton_clicked();
     void on_setAlarmSetPointButton_clicked();
+    void on_setAlarmPeriodButton_clicked();
     void on_disconnectButton_clicked();
     void on_getBatteryLevelButton_clicked();
     void on_getMemoryUsageLevelButton_clicked();
