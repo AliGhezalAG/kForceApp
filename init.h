@@ -22,7 +22,7 @@ using namespace std;
 #define SET_TIME_CLOCK_COMMAND              "71" // OK
 #define SET_ALARM_SET_POINT_COMMAND         "73" // OK
 #define GET_ALARM_SET_POINT_COMMAND         "74" // OK
-#define SET_ALARM_PERIOD_COMMAND            "75"
+#define SET_ALARM_PERIOD_COMMAND            "75" // OK
 #define GET_MEMORY_USAGE_COMMAND            "80" // OK
 #define GET_BATTERY_LEVEL_COMMAND           "81" // OK
 #define MEASUREMENT_MULTIPLIER_DENOMINATOR  1000000.0
