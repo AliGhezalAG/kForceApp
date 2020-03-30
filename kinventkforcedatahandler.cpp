@@ -248,8 +248,8 @@ void KinventKForceDataHandler::processStoredData(QString &deviceAddress, QByteAr
         // the general infos data is encoded in 7 bytes, so the measurement packet starts at the entry start index + 7
         // each measurement is encoded in 6 bytes (3 for channel 1 and 3 for channel 2) so we use a step of 6
         for (int j = count + 7; j < count + 7 + (static_cast<int>(entryDataNb)*6) ; j+=6) {
-            double mes1 = byteArrayToInt(receivedData.mid(j,3))/1000.0;
-            double mes2 = byteArrayToInt(receivedData.mid(j+3,3))/1000.0;
+            double mes1 = (byteArrayToInt(receivedData.mid(j,3))/10000.0) - 1;
+            double mes2 = (byteArrayToInt(receivedData.mid(j+3,3))/10000.0) - 1;
 
             // write the measurement values in the output file
             logFile << ","
